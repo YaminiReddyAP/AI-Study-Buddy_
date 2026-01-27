@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Study Buddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" width="120">
+        <h1>AI-Powered Study Buddy</h1>
+    </div>
+
+    <p class="subtitle">
+        Upload notes, simplify concepts, and generate study materials instantly.
+    </p>
+
+    <form method="POST">
+        <textarea name="user_input" placeholder="Enter your study text here..." required></textarea>
+        <br><br>
+        <button type="submit">Explain Simply</button>
+    </form>
+
+    {% if explanation %}
+        <h2>Explanation</h2>
+        <p>{{ explanation }}</p>
+
+        <h2>Summary</h2>
+        <p>{{ summary }}</p>
+
+        <h2>Quiz</h2>
+        <ul>
+            {% for q in quiz %}
+                <li>{{ q }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
