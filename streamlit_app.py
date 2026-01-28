@@ -2,68 +2,91 @@ import streamlit as st
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
-    page_title="AI Study Buddy",
+    page_title="AI-Powered Study Buddy",
     page_icon="🤖",
-    layout="centered"
+    layout="wide"
 )
 
 # ---------------- CUSTOM CSS ----------------
 st.markdown("""
 <style>
-.main {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+/* Background */
+.stApp {
+    background: linear-gradient(180deg, #0b2d3a 0%, #163f52 100%);
     color: white;
 }
-.card {
-    background-color: #1f2933;
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 20px;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.4);
+
+/* Center container */
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding-top: 60px;
 }
-.highlight {
-    color: #38bdf8;
-    font-weight: bold;
+
+/* Title */
+.title {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
-hr {
-    border: 1px solid #374151;
+
+/* Subtitle */
+.subtitle {
+    font-size: 18px;
+    opacity: 0.85;
+    margin-bottom: 30px;
+}
+
+/* Text area */
+textarea {
+    border-radius: 14px !important;
+    padding: 18px !important;
+    font-size: 16px !important;
+}
+
+/* Button */
+.stButton > button {
+    background-color: #00aaff;
+    color: white;
+    font-size: 16px;
+    padding: 10px 26px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 15px;
+}
+
+.stButton > button:hover {
+    background-color: #0095dd;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------- HEADER ----------------
-st.markdown("""
-<div class="card">
-    <h1>🤖 AI Study Buddy</h1>
-    <p class="highlight">
-        Upload notes, simplify concepts, generate summaries, and create quick quiz questions instantly.
-    </p>
-</div>
-""", unsafe_allow_html=True)
+# ---------------- CONTENT ----------------
+st.markdown("<div class='container'>", unsafe_allow_html=True)
 
-# ---------------- INPUT ----------------
-st.markdown("<div class='card'>", unsafe_allow_html=True)
-
-user_text = st.text_area(
-    "📘 Enter your study text here",
-    height=180,
-    placeholder="Paste your notes here...",
-    key="study_input"
+st.markdown(
+    "<div class='title'>🎓 AI-Powered Study Buddy</div>",
+    unsafe_allow_html=True
 )
 
-st.markdown("</div>", unsafe_allow_html=True)
+st.markdown(
+    "<div class='subtitle'>Upload notes, simplify concepts, and generate study materials instantly.</div>",
+    unsafe_allow_html=True
+)
 
-# ---------------- BUTTON ACTION ----------------
-if st.button("✨ Explain Simply"):
+user_text = st.text_area(
+    "Enter your study text here...",
+    height=220,
+    placeholder="Enter your study text here..."
+)
+
+if st.button("Explain Simply"):
     if user_text.strip() == "":
-        st.warning("⚠️ Please enter some study text.")
+        st.warning("Please enter some study text.")
     else:
-        # Sentence split (simple & safe)
-        sentences = user_text.replace("?", ".").replace("!", ".").split(".")
+        st.markdown("### 📘 Simplified Explanation")
 
-        # ---------------- SIMPLIFIED EXPLANATION ----------------
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.subheader("📘 Simplified Explanation")
+        sentences = user_text.replace("?", ".").replace("!", ".").split(".")
 
         for s in sentences:
             s = s.strip()
@@ -74,33 +97,6 @@ if st.button("✨ Explain Simply"):
                     .replace("enterprise level", "companies")
                     .replace("risk management strategy", "ways to reduce risk")
                 )
-                st.write("🔹", simple.capitalize())
+                st.write("•", simple.capitalize())
 
-        st.markdown("</div>", unsafe_allow_html=True)
-
-        # ---------------- SUMMARY ----------------
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.subheader("📝 Summary")
-
-        summary = user_text[:250] + ("..." if len(user_text) > 250 else "")
-        st.write(summary)
-
-        st.markdown("</div>", unsafe_allow_html=True)
-
-        # ---------------- QUIZ ----------------
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.subheader("❓ Quick Quiz")
-
-        words = user_text.split()[:5]
-        for i, w in enumerate(words, start=1):
-            st.write(f"{i}. What is related to **{w}**?")
-
-        st.markdown("</div>", unsafe_allow_html=True)
-
-# ---------------- FOOTER ----------------
-st.markdown("""
-<hr>
-<p style="text-align:center; font-size:14px; color:#9ca3af;">
-Built with ❤️ using Streamlit | AI Study Buddy Project
-</p>
-""", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
