@@ -1,12 +1,10 @@
 import streamlit as st
 import nltk
 from nltk.tokenize import sent_tokenize
-import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
 
 # Download once (safe even if already downloaded)
 nltk.download("punkt")
+nltk.download('stopwords')
 nltk.download("punkt_tab")
 
 st.set_page_config(page_title="AI Study Buddy")
